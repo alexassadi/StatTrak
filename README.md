@@ -1,2 +1,2 @@
 # StatTrak
-Football Analysis system formatted for betting
+Football analysis system formatted for betting
