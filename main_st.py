@@ -39,11 +39,11 @@ elif format_choice == 'Team':
     league_combined['FK/90'] = league_combined['FKS/90'] + league_combined['FKP/90']
     league_combined = league_combined[['Squad','MP','Poss','Gls/90','Sh/90','SoT/90','FK/90','Tkl/90','TI/90','CK/90','Off/90','CrdY/90','CrdR/90']]
     teams_choice = []
-    for team in team_links.keys():
+    for team in league_combined['Squad']:
         if st.checkbox(team):
             teams_choice.append(team)
     if st.checkbox('All'):
-        teams_choice = list(team_links.keys())
+        teams_choice = list(league_combined['Squad'])
     st.write(league_combined[league_combined['Squad'].isin(teams_choice)])
     '''
     else:
