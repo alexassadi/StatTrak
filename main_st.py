@@ -6,7 +6,7 @@ import pandas as pd
 import functools as ft
 import streamlit as st
 
-#league_choice = input("What league would you like to view stats for?: ")
+st.write('''#Gambling is wrong''')
 
 league_choice = st.selectbox(
     'Which league would you like to vew stats for?: ',
@@ -14,8 +14,6 @@ league_choice = st.selectbox(
 
 league_id = get_league_id(league_choice)
 team_links, league_link = get_league_links(league_choice)
-
-#format_choice = input("Would you like team (t) or player (p) stats?: ")
 
 format_choice = st.selectbox(
     'Would you like team or player stats?: ',
