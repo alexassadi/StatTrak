@@ -6,7 +6,7 @@ import pandas as pd
 import functools as ft
 import streamlit as st
 
-st.write('''#Gambling is wrong''')
+st.write('''Gambling is **BAD**''')
 
 league_choice = st.selectbox(
     'Which league would you like to vew stats for?: ',
