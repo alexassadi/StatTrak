@@ -166,25 +166,32 @@ def get_defensive_combined(soup,league_id):
 
 def get_league_basic(soup):
     table = soup.find('table', id='stats_squads_standard_for')
-
+    table2 = soup.find('table', id='stats_squads_standard_against')
+    
     headers = get_headers(table)
-    headers = headers[6:38]
+    headers = headers[6:]
     headers[15] = 'Gls/90'
     headers[16] = 'Ast/90'
     
     mydata = pd.DataFrame(columns = headers)
+    mydata2 = pd.DataFrame(columns = headers)
     
     overall = get_stats(table)
+    overall2 = get_stats(table2)
     
-    chunks = clean_data(overall,29)
-
+    chunks = clean_data(overall,32)
+    chunks2 = clean_data(overall2,32)
+    
     mydata = input_data(chunks,mydata)
+    mydata2 = input_data(chunks2,mydata2)
     
-    mydata = mydata.astype({'90s':'float64','CrdY':'int','CrdR':'int'})
-    mydata['CrdY/90'] = mydata['CrdY'] / mydata['90s']
-    mydata['CrdR/90'] = mydata['CrdR'] / mydata['90s']
+    mydata_concat = pd.concat([mydata,mydata2])
 
-    mydata_final = mydata[['Squad','MP','Poss','CrdY/90','CrdR/90','Gls/90','Ast/90']]
+    mydata_concat = mydata_concat.astype({'90s':'float64','CrdY':'int','CrdR':'int'})
+    mydata_concat['CrdY/90'] = mydata_concat['CrdY'] / mydata_concat['90s']
+    mydata_concat['CrdR/90'] = mydata_concat['CrdR'] / mydata_concat['90s']
+
+    mydata_final = mydata_concat[['Squad','MP','Poss','CrdY/90','CrdR/90','Gls/90','Ast/90']]
 
     return mydata_final
 
