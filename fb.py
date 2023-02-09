@@ -168,7 +168,7 @@ def get_league_basic(soup):
     table = soup.find('table', id='stats_squads_standard_for')
 
     headers = get_headers(table)
-    headers = headers[6:]
+    headers = headers[6:38]
     headers[15] = 'Gls/90'
     headers[16] = 'Ast/90'
     
