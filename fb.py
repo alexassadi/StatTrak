@@ -170,8 +170,8 @@ def get_league_basic(soup):
     
     headers = get_headers(table)
     headers = headers[6:]
-    headers[15] = 'Gls/90'
-    headers[16] = 'Ast/90'
+    headers[22] = 'Gls/90'
+    headers[23] = 'Ast/90'
     
     mydata = pd.DataFrame(columns = headers)
     mydata2 = pd.DataFrame(columns = headers)
@@ -184,7 +184,7 @@ def get_league_basic(soup):
     
     mydata = input_data(chunks,mydata)
     mydata2 = input_data(chunks2,mydata2)
-    
+    print(mydata.to_string())
     mydata_concat = pd.concat([mydata,mydata2])
 
     mydata_concat = mydata_concat.astype({'90s':'float64','CrdY':'int','CrdR':'int'})
