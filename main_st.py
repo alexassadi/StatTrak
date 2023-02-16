@@ -43,14 +43,3 @@ elif format_choice == 'Team':
     if st.checkbox('All'):
         teams_choice = list(league_combined['Squad'])
     st.write(league_combined[league_combined['Squad'].isin(teams_choice)])
-    '''
-    else:
-        teams_choice = select.split(', ')
-        url = league_link
-        page = requests.get(url)
-        soup = BeautifulSoup(page.text, 'lxml')
-        league_combined = get_league_basic(soup).merge(get_league_shooting(soup), how='outer', on='Squad').merge(get_league_defensive(soup), how='outer', on='Squad').merge(get_league_passing_types(soup), how='outer', on='Squad').merge(get_league_misc(soup), how='outer', on='Squad')
-        league_combined['FK/90'] = league_combined['FKS/90'] + league_combined['FKP/90']
-        league_combined = league_combined[['Squad','MP','Poss','Gls/90','Sh/90','SoT/90','FK/90','Tkl/90','TI/90','CK/90','Off/90','CrdY/90','CrdR/90']]
-        print(league_combined[league_combined['Squad'].isin(teams_choice)].to_string())
-        '''
