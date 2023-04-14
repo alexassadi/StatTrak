@@ -61,14 +61,20 @@ def get_stats(table):
     overall = list(zip(names,stats))
     return overall
 
-def clean_data(overall,n):
+def clean_data(overall,n,form):
     final = []
-    for player in overall:
-        for i in player:
-            final.append(i)
+    if form == False:
+        for player in overall:
+            for i in player:
+                final.append(i)
+    elif form == True:
+        for match in overall:
+            if match[1][1] == 'Premier League':
+                for i in match:
+                    final.append(i)
 
     final = list(flatten(final))
-
+    
     chunk = [final[x:x+n] for x in range(0, len(final), n)]
     
     chunks = []
@@ -320,3 +326,46 @@ def get_league_links(choice):
         team_links[teams[i]] = links[i]
     team_links
     return team_links, url
+ 
+def get_player_links(team_choice):
+    prem_link = get_league_id('Premier League')
+    league_links, league_link = get_league_links('Premier League')
+    url = league_links[team_choice]
+    page = requests.get(url)
+    soup = BeautifulSoup(page.text, 'lxml')
+    table = soup.find('table', id='stats_standard_9')
+    links = []
+    for i in table.find_all('a'):
+        html = i.get('href')
+        if 'player' in html:
+            links.append(html)
+    links_new = []
+    for i in links:
+        if 'Match-Logs' in i:
+            link = 'https://fbref.com' + i
+            links_new.append(link)
+    names = []
+    for i in links_new:
+        split = i.split('/')
+        split2 = split[9].split('-')
+        name = []
+        for j in split2:
+            if not j in ['Match','Logs']:
+                name.append(j)
+        names.append(' '.join(name))
+    player_dict = dict(zip(names, links_new))
+    return player_dict
+
+def get_player_form(player_choice):
+    page = requests.get(player_choice)
+    soup = BeautifulSoup(page.text, 'lxml')
+    table = soup.find('table', id='matchlogs_all')
+    headers = get_headers(table)
+    headers = headers[7:]
+    mydata = pd.DataFrame(columns = headers)
+    overall = get_stats(table)
+    chunks = clean_data(overall,37,True) 
+    mydata = input_data(chunks,mydata)
+    mydata = mydata[['Result','Opponent','Min','Gls','Ast','Sh','SoT','CrdY','Tkl']].tail(10)
+    mydata = mydata.astype({'Gls': 'int64', 'Ast': 'int64', 'Sh': 'int64', 'SoT': 'int64', 'CrdY': 'int64', 'Tkl': 'int64'})
+    return mydata
