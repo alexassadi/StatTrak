@@ -10,11 +10,11 @@ league_links = {'Premier League':'/9/Premier-League-Stats',
                 'Ligue 1':'/13/Ligue-1-Stats',
                 'Bundesliga':'/20/Bundesliga-Stats'}
 
-table_names = {'Premier League':'results2022-202391_overall',
-                'La Liga':'results2022-2023121_overall',
-                'Serie A':'results2022-2023111_overall',
-                'Ligue 1':'results2022-2023131_overall',
-                'Bundesliga':'results2022-2023201_overall'}
+table_names = {'Premier League':'results2023-202491_overall',
+                'La Liga':'results2023-2024121_overall',
+                'Serie A':'results2023-2024111_overall',
+                'Ligue 1':'results2023-2024131_overall',
+                'Bundesliga':'results2023-2024201_overall'}
 
 def get_league_id(choice):
     if choice == 'Premier League':
