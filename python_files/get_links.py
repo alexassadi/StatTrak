@@ -5,7 +5,31 @@ import requests
 import lxml
 import datetime
 
-get_player_links(league_choice, team_choice):
+league_links = {'Premier League':'/9/Premier-League-Stats',
+                'La Liga':'/12/La-Liga-Stats',
+                'Serie A':'/11/Serie-A-Stats',
+                'Ligue 1':'/13/Ligue-1-Stats',
+                'Bundesliga':'/20/Bundesliga-Stats'}
+
+table_names = {'Premier League':f'results{datetime.datetime.now().year - 1}-{datetime.datetime.now().year}91_overall',
+                'La Liga':f'results{datetime.datetime.now().year - 1}-{datetime.datetime.now().year}121_overall',
+                'Serie A':f'results{datetime.datetime.now().year - 1}-{datetime.datetime.now().year}111_overall',
+                'Ligue 1':f'results{datetime.datetime.now().year - 1}-{datetime.datetime.now().year}131_overall',
+                'Bundesliga':f'results{datetime.datetime.now().year - 1}-{datetime.datetime.now().year}201_overall'}
+
+def get_league_id(choice):
+    if choice == 'Premier League':
+        return '9'
+    elif choice == 'La Liga':
+        return '12'
+    elif choice == 'Serie A':
+        return '11'
+    elif choice == 'Ligue 1':
+        return '13'
+    elif choice == 'Bundesliga':
+        return '20'
+
+def get_player_links(league_choice, team_choice):
     prem_link = get_league_id(league_choice)
     league_links, league_link = get_league_links(league_choice)
     url = league_links[team_choice]
