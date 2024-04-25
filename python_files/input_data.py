@@ -1,3 +1,10 @@
+from collections.abc import Iterable
+import pandas as pd
+from bs4 import BeautifulSoup
+import requests
+import lxml
+
+
 def flatten(lis):
      for item in lis:
          if isinstance(item, Iterable) and not isinstance(item, str):

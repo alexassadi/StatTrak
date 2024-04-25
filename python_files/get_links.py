@@ -30,7 +30,7 @@ def get_league_id(choice):
         return '20'
 
 def get_player_links(league_choice, team_choice):
-    prem_link = get_league_id(league_choice)
+    #prem_link = get_league_id(league_choice)
     league_links, league_link = get_league_links(league_choice)
     url = league_links[team_choice]
     page = requests.get(url)
